@@ -4,10 +4,20 @@ Debug
 # Visual Studio files
 *.sln
 *.vcxproj*
+*.vcxproj.*
 *.log
+*.rc
+*.aps
+*resource.h
 
 # VS Code files
 .vs
+
+# Cheat Engine output files
+*.scandata*
+*.scandata.*
+*.PTR
+*.PTR.*
 
 # Prerequisites
 *.d
