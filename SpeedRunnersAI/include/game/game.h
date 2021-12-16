@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "structs.h"
- 
+
 class Game
 {
 public:

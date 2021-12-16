@@ -6,7 +6,7 @@
 /**
  * @brief Gets the first thread of the current process.
  * 
- * @return HANDLE   The first thread of the current process, or NULL if there is a failure.
+ * @return HANDLE   The first thread of the current process, or INVALID_HANDLE_VALUE if there is a failure.
  */
 HANDLE GetFirstThread()
 {
@@ -16,8 +16,8 @@ HANDLE GetFirstThread()
 
     if (snapshot == INVALID_HANDLE_VALUE)
     {
-        MessageBox(NULL, L"Failed to get handle", L"Hello there!", MB_ICONINFORMATION);
-        return NULL;
+        MessageBox(NULL, L"Failed to get snapshot", L"Hello there!", MB_ICONINFORMATION);
+        return INVALID_HANDLE_VALUE;
     }
 
     THREADENTRY32 entry;
@@ -27,8 +27,8 @@ HANDLE GetFirstThread()
     {
         // Failure here
         CloseHandle(snapshot);
-        MessageBox(NULL, L"Failed to get thread", L"Hello there!", MB_ICONINFORMATION);
-        return NULL;
+        MessageBox(NULL, L"Failed thread32first", L"Hello there!", MB_ICONINFORMATION);
+        return INVALID_HANDLE_VALUE;
     }
 
     // Get the first thread belonging to the process
@@ -40,6 +40,11 @@ HANDLE GetFirstThread()
     CloseHandle(snapshot);
 
     HANDLE thread = OpenThread(THREAD_QUERY_INFORMATION, false, entry.th32ThreadID);
+
+    if (thread == INVALID_HANDLE_VALUE)
+    {
+        MessageBox(NULL, L"Failed to get thread", L"Hello there!", MB_ICONINFORMATION);
+    }
 
     return thread;
 }

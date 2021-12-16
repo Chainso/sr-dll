@@ -1,17 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include <Windows.h>
-#include <tlhelp32.h>
-#include <string>
-#include <stdio.h>
-#include <fstream>
-#include <winternl.h>
-#include <libloaderapi.h>
-#include <Psapi.h>
 
-#include "inject/ntinfo.h"
 #include "inject/server.h"
-#include "game/memory.h"
-#include "util.h"
 
 /**
  * @brief A thread to run the DLL server.

@@ -16,7 +16,7 @@ int GameServer()
 {
     HANDLE thread = GetFirstThread();
     
-    if (thread == NULL) {
+    if (thread == INVALID_HANDLE_VALUE) {
         return -1;
     }
 
@@ -27,20 +27,19 @@ int GameServer()
     CloseHandle(process);
     CloseHandle(thread);
 
-    Game* game = Game::GetGame(start_addr);
 
     std::ofstream fs("C:\\Users\\Chainso\\Desktop\\zz.txt");
 
-    fs << start_addr << std::endl;
+    fs << (LPVOID)start_addr << std::endl;
 
+    Game* game = Game::GetGame(start_addr);
 
-    fs << game->info << " " << game->info->lap_time << std::endl;
+    fs << (LPVOID)game->info << " " << game->info->lap_time << std::endl;
 
     for (Player*& player : game->players) {
-        fs << player << " " << player->entity->velocity.x << " " << player->entity->velocity.y << std::endl;
+        fs << (LPVOID)player << " " << player->entity->position.x << " " << player->entity->position.y << std::endl;
     }
 
     fs.close();
-
 	return 0;
 }

@@ -11,7 +11,7 @@
  */
 uintptr_t FindAddress(uintptr_t pointer, std::vector<ptrdiff_t> offsets)
 {
-    for (int i = 0; i < offsets.size(); i++) {
+    for (size_t i = 0; i < offsets.size(); i++) {
         pointer = *(uintptr_t*)pointer + offsets[i];
     }
 
