@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"Entity"</Description>
+      <LastState Value="153796676" RealAddress="0377AC84"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"THREADSTACK0"-00000994</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>C</Offset>
+        <Offset>4</Offset>
+        <Offset>20</Offset>
+        <Offset>124</Offset>
+        <Offset>C</Offset>
+        <Offset>50</Offset>
+        <Offset>8</Offset>
+      </Offsets>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>27</ID>
+          <Description>"Horizontal Velocity"</Description>
+          <LastState Value="0" RealAddress="0377ACD8"/>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000994</Address>
+          <Offsets>
+            <Offset>54</Offset>
+            <Offset>C</Offset>
+            <Offset>4</Offset>
+            <Offset>20</Offset>
+            <Offset>124</Offset>
+            <Offset>C</Offset>
+            <Offset>50</Offset>
+            <Offset>8</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>28</ID>
+          <Description>"Vertical Velocity"</Description>
+          <LastState Value="0" RealAddress="0377ACDC"/>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000994</Address>
+          <Offsets>
+            <Offset>58</Offset>
+            <Offset>C</Offset>
+            <Offset>4</Offset>
+            <Offset>20</Offset>
+            <Offset>124</Offset>
+            <Offset>C</Offset>
+            <Offset>50</Offset>
+            <Offset>8</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>34</ID>
+          <Description>"Horizontal Position"</Description>
+          <LastState Value="8432.037109" RealAddress="0377ACC0"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000994</Address>
+          <Offsets>
+            <Offset>3C</Offset>
+            <Offset>C</Offset>
+            <Offset>4</Offset>
+            <Offset>20</Offset>
+            <Offset>124</Offset>
+            <Offset>C</Offset>
+            <Offset>50</Offset>
+            <Offset>8</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>35</ID>
+          <Description>"Vertical Position"</Description>
+          <LastState Value="3506.895752" RealAddress="0377ACC4"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000994</Address>
+          <Offsets>
+            <Offset>40</Offset>
+            <Offset>C</Offset>
+            <Offset>4</Offset>
+            <Offset>20</Offset>
+            <Offset>124</Offset>
+            <Offset>C</Offset>
+            <Offset>50</Offset>
+            <Offset>8</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>122</ID>
+      <Description>"Entity State"</Description>
+      <LastState Value="119516072" RealAddress="0377A62C"/>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"THREADSTACK0"-00000980</Address>
+      <Offsets>
+        <Offset>10</Offset>
+        <Offset>0</Offset>
+        <Offset>48</Offset>
+        <Offset>10</Offset>
+        <Offset>44</Offset>
+        <Offset>18</Offset>
+        <Offset>EE4</Offset>
+        <Offset>188</Offset>
+      </Offsets>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>123</ID>
+          <Description>"Boost"</Description>
+          <LastState Value="0" RealAddress="0377A868"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>24C</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>128</ID>
+          <Description>"Item"</Description>
+          <LastState Value="0" RealAddress="0377A8F0"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2D4</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>132</ID>
+          <Description>"Grapple Length"</Description>
+          <LastState Value="280.2029419" RealAddress="0377A850"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>234</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>134</ID>
+          <Description>"Grapple Angle"</Description>
+          <LastState Value="1.634225845" RealAddress="0377A854"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>238</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>145</ID>
+          <Description>"Moving Left"</Description>
+          <LastState Value="0" RealAddress="0377A8BB"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>29F</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>97</ID>
+          <Description>"Entity Sliding"</Description>
+          <LastState Value="0" RealAddress="0377A8BC"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2A0</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>100</ID>
+          <Description>"Entity Sliding 2"</Description>
+          <LastState Value="0" RealAddress="0377A8BD"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2A1</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>101</ID>
+          <Description>"Entity Swinging"</Description>
+          <LastState Value="0" RealAddress="0377A8BE"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2A2</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>141</ID>
+          <Description>"Entity Swinging 2"</Description>
+          <LastState Value="0" RealAddress="0377A8D3"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2B7</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>142</ID>
+          <Description>"Entity Swinging 3"</Description>
+          <LastState Value="0" RealAddress="0377A8D5"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2B9</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>102</ID>
+          <Description>"Entity Sliding 4"</Description>
+          <LastState Value="0" RealAddress="0377A8BF"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2A3</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>144</ID>
+          <Description>"On Ground"</Description>
+          <LastState Value="1" RealAddress="0377A8DC"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2C0</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>146</ID>
+          <Description>"In Air"</Description>
+          <LastState Value="0" RealAddress="0377A8C9"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>"THREADSTACK0"-00000980</Address>
+          <Offsets>
+            <Offset>2AD</Offset>
+            <Offset>0</Offset>
+            <Offset>48</Offset>
+            <Offset>10</Offset>
+            <Offset>44</Offset>
+            <Offset>18</Offset>
+            <Offset>EE4</Offset>
+            <Offset>188</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>158</ID>
+      <Description>"Time Struct"</Description>
+      <LastState Value="184293868" RealAddress="0374447C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"THREADSTACK0"-00000994</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>80</Offset>
+        <Offset>3C</Offset>
+        <Offset>E0</Offset>
+        <Offset>10</Offset>
+        <Offset>260</Offset>
+        <Offset>65C</Offset>
+        <Offset>8</Offset>
+      </Offsets>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>159</ID>
+          <Description>"Time"</Description>
+          <LastState Value="908.6525879" RealAddress="037444F4"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>"THREADSTACK0"-00000994</Address>
+          <Offsets>
+            <Offset>78</Offset>
+            <Offset>80</Offset>
+            <Offset>3C</Offset>
+            <Offset>E0</Offset>
+            <Offset>10</Offset>
+            <Offset>260</Offset>
+            <Offset>65C</Offset>
+            <Offset>8</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>160</ID>
+      <Description>"THREADSTACK0"</Description>
+      <LastState Value="1991467840" RealAddress="0093FBE8"/>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>THREADSTACK0</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

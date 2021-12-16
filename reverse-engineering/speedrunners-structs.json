@@ -1,0 +1,180 @@
+{
+  "entity": {
+    "address": "\"THREADSTACK0\"-00000994",
+    "children": {
+      "horizontal-position": {
+        "address": "\"THREADSTACK0\"-00000994",
+        "children": {},
+        "offsets": [
+          "3C"
+        ]
+      },
+      "horizontal-velocity": {
+        "address": "\"THREADSTACK0\"-00000994",
+        "children": {},
+        "offsets": [
+          "54"
+        ]
+      },
+      "vertical-position": {
+        "address": "\"THREADSTACK0\"-00000994",
+        "children": {},
+        "offsets": [
+          "40"
+        ]
+      },
+      "vertical-velocity": {
+        "address": "\"THREADSTACK0\"-00000994",
+        "children": {},
+        "offsets": [
+          "58"
+        ]
+      }
+    },
+    "offsets": [
+      "8",
+      "50",
+      "C",
+      "124",
+      "20",
+      "4",
+      "C",
+      "0"
+    ]
+  },
+  "entity-state": {
+    "address": "\"THREADSTACK0\"-00000980",
+    "children": {
+      "boost": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "23C"
+        ]
+      },
+      "entity-sliding": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "290"
+        ]
+      },
+      "entity-sliding-2": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "291"
+        ]
+      },
+      "entity-sliding-4": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "293"
+        ]
+      },
+      "entity-swinging": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "292"
+        ]
+      },
+      "entity-swinging-2": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "2A7"
+        ]
+      },
+      "entity-swinging-3": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "2A9"
+        ]
+      },
+      "grapple-angle": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "228"
+        ]
+      },
+      "grapple-length": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "224"
+        ]
+      },
+      "in-air": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "29D"
+        ]
+      },
+      "item": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "2C4"
+        ]
+      },
+      "moving-left": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "28F"
+        ]
+      },
+      "on-ground": {
+        "address": "\"THREADSTACK0\"-00000980",
+        "children": {},
+        "offsets": [
+          "2B0"
+        ]
+      }
+    },
+    "offsets": [
+      "188",
+      "EE4",
+      "18",
+      "44",
+      "10",
+      "48",
+      "0",
+      "10"
+    ]
+  },
+  "threadstack0": {
+    "address": "THREADSTACK0",
+    "children": {},
+    "offsets": [
+      "0"
+    ]
+  },
+  "time-struct": {
+    "address": "\"THREADSTACK0\"-00000994",
+    "children": {
+      "time": {
+        "address": "\"THREADSTACK0\"-00000994",
+        "children": {},
+        "offsets": [
+          "78"
+        ]
+      }
+    },
+    "offsets": [
+      "8",
+      "65C",
+      "260",
+      "10",
+      "E0",
+      "3C",
+      "80",
+      "0"
+    ]
+  }
+}
