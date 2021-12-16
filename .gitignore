@@ -1,3 +1,14 @@
+# Compilation files
+Debug
+
+# Visual Studio files
+*.sln
+*.vcxproj*
+*.log
+
+# VS Code files
+.vs
+
 # Prerequisites
 *.d
 
