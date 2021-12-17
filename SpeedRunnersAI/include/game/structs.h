@@ -26,7 +26,8 @@ struct Player
 	Entity* entity; //0x0024
 	char pad_0028[508]; //0x0028
 	float grapple_radius; //0x0224
-	char pad_0228[16]; //0x0228
+	float grapple_angle; //0x0228
+	char pad_022C[12]; //0x022C
 	float boost; //0x0238
 	char pad_023C[32]; //0x023C
 	float lap_time; //0x025C
@@ -35,9 +36,9 @@ struct Player
 	uint8_t unknown; //0x0291
 	uint8_t swinging; //0x0292
 	char pad_0293[10]; //0x0293
-	uint8_t inAir; //0x029D
+	uint8_t in_air; //0x029D
 	char pad_029E[18]; //0x029E
-	uint8_t onGround; //0x02B0
+	uint8_t on_ground; //0x02B0
 	char pad_02B1[15]; //0x02B1
 	uint8_t item; //0x02C0
 	char pad_02C1[71]; //0x02C1

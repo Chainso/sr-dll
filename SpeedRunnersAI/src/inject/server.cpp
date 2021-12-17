@@ -4,19 +4,12 @@
 #include "inject/thread.h"
 #include "inject/ntinfo.h"
 #include "game/game.h"
+#include "game/packet.h"
 
 #include <fstream>
+#include <chrono>
+#include <thread>
 
-/**
- * @brief Creates a packet from the current game state.
- * 
- * @param game  The game state to create the packet from.
- * @returns     The create packet as a string
- */
-static std::string CreatePacket(Game* game)
-{
-
-}
 
 /**
  * @brief The main game server loop.
@@ -29,17 +22,23 @@ static int GameServerLoop(Game* game)
     // Create named pipe to use
     LPCWSTR pipe_name = L"SpeedRunnersAI-dll";
     
-    HANDLE pipe = CreateNamedPipe(pipe_name, PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_REJECT_REMOTE_CLIENTS, 1, WRITE_BUFFER_SIZE, READ_BUFFER_SIZE, 0, NULL);
+    HANDLE pipe = CreateNamedPipe(pipe_name, PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_NOWAIT | PIPE_REJECT_REMOTE_CLIENTS, 1, WRITE_BUFFER_SIZE, READ_BUFFER_SIZE, 0, NULL);
 
     if (pipe == INVALID_HANDLE_VALUE)
     {
         return -1;
     }
 
+    // Wait for client to connect
+    if (ConnectNamedPipe(pipe, NULL) == 0)
+    {
+        // Failed to connect the client
+        return -1;
+    }
+
     char read_buffer[READ_BUFFER_SIZE];
     DWORD bytes_read;
 
-    char write_buffer[WRITE_BUFFER_SIZE];
     DWORD bytes_written;
 
     while (true)
@@ -56,8 +55,20 @@ static int GameServerLoop(Game* game)
         }
 
         // Write cycle
-        //WriteFile(pipe, write_buffer, -1, &bytes_written, NULL);
+        Packet packet = CreatePacket(game);
+        WriteFile(pipe, packet.message.c_str(), packet.length, &bytes_written, NULL);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+
+    // Disconnect from client
+    if (DisconnectNamedPipe(pipe) == 0)
+    {
+        // Failed to disconnect
+        return -1;
+    }
+
+    return 0;
 }
 
 /**
@@ -91,6 +102,11 @@ int GameServer()
     for (Player*& player : game->players) {
         fs << (LPVOID)player << " " << player->entity->position.x << " " << player->entity->position.y << std::endl;
     }
+
+    Packet packet = CreatePacket(game);
+
+    fs << packet.length << std::endl;
+    fs << packet.message << std::endl;
 
     fs.close();
 	return 0;
