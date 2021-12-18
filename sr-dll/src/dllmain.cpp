@@ -18,7 +18,7 @@ DWORD WINAPI ServerThread()
         || freopen_s(&std_file, "CONOUT$", "w", stderr) != 0
         || freopen_s(&std_file, "CONOUT$", "w", stdout) != 0)
     {
-        MessageBox(NULL, L"Error creating a console", L"SpeedRunnersAI DLL Error", MB_ICONERROR);
+        MessageBox(NULL, L"Error creating a console", L"SpeedRunners DLL Error", MB_ICONERROR);
         return -1;
     }
 
@@ -43,7 +43,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
             HANDLE thread = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)ServerThread, hModule, 0, nullptr);
 
             if (thread == NULL) {
-                MessageBox(NULL, L"Error creating server thread", L"SpeedRunnersAI DLL Error", MB_ICONERROR);
+                MessageBox(NULL, L"Error creating server thread", L"SpeedRunners DLL Error", MB_ICONERROR);
             }
             else {
                 CloseHandle(thread);

@@ -130,7 +130,7 @@ static int GameServerReconnectLoop(Game* game, HANDLE& pipe)
 static int GameServerLoop(Game* game)
 {
     // Create named pipe to use
-    LPCWSTR pipe_name = L"\\\\.\\pipe\\SpeedRunnersAI-dll";
+    LPCWSTR pipe_name = L"\\\\.\\pipe\\SpeedRunners-dll";
     
     HANDLE pipe = CreateNamedPipe(
         pipe_name, 

@@ -12,6 +12,8 @@ Debug
 *.rc
 *.aps
 *resource.h
+*.filters
+*.user
 
 # VS Code files
 .vs
