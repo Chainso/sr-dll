@@ -1,6 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include <Windows.h>
 
+#include "util.h"
 #include "inject/server.h"
 
 /**
@@ -10,7 +11,24 @@
  */
 DWORD WINAPI ServerThread()
 {
-    return GameServer();
+    // Create a debug console
+    FILE* std_file;
+    if (AllocConsole() == 0
+        || freopen_s(&std_file, "CONIN$", "r", stdin) != 0
+        || freopen_s(&std_file, "CONOUT$", "w", stderr) != 0
+        || freopen_s(&std_file, "CONOUT$", "w", stdout) != 0)
+    {
+        MessageBox(NULL, L"Error creating a console", L"SpeedRunnersAI DLL Error", MB_ICONERROR);
+        return -1;
+    }
+
+    print("Starting game server");
+    DWORD return_value = GameServer();
+
+    print("Closing game server");
+    FreeConsole();
+
+    return return_value;
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -25,7 +43,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
             HANDLE thread = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)ServerThread, hModule, 0, nullptr);
 
             if (thread == NULL) {
-                MessageBox(NULL, L"Error creating server thread", L"SpeedRunnersAI DLL Error", MB_ICONINFORMATION);
+                MessageBox(NULL, L"Error creating server thread", L"SpeedRunnersAI DLL Error", MB_ICONERROR);
             }
             else {
                 CloseHandle(thread);

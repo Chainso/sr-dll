@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <tlhelp32.h>
 
+#include "util.h"
 #include "inject/thread.h"
 
 /**
@@ -16,7 +17,7 @@ HANDLE GetFirstThread()
 
     if (snapshot == INVALID_HANDLE_VALUE)
     {
-        MessageBox(NULL, L"Failed to get snapshot", L"Hello there!", MB_ICONINFORMATION);
+        print_error("Failed to get thread snapshot");
         return INVALID_HANDLE_VALUE;
     }
 
@@ -27,7 +28,7 @@ HANDLE GetFirstThread()
     {
         // Failure here
         CloseHandle(snapshot);
-        MessageBox(NULL, L"Failed thread32first", L"Hello there!", MB_ICONINFORMATION);
+        print_error("Failed to get first thread of snapshot");
         return INVALID_HANDLE_VALUE;
     }
 
@@ -43,7 +44,7 @@ HANDLE GetFirstThread()
 
     if (thread == INVALID_HANDLE_VALUE)
     {
-        MessageBox(NULL, L"Failed to get thread", L"Hello there!", MB_ICONINFORMATION);
+        print_error("Failed to open first game thread");
     }
 
     return thread;
