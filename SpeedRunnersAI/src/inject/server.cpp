@@ -1,7 +1,5 @@
 #include <windows.h>
 #include <atlstr.h>
-#include <chrono>
-#include <thread>
 
 #include "inject/server.h"
 #include "inject/thread.h"
@@ -110,8 +108,6 @@ static int GameServerReconnectLoop(Game* game, HANDLE& pipe)
                 print("Length: " << packet.length);
                 print(packet.message);
             }
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
         }
 
         // Disconnect from client
