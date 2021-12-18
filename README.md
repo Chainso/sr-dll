@@ -1,3 +1,3 @@
-# sr-dll
+# SpeedRunners DLL
 
-A DLL for SpeedRunners that opens a pipe to accept input and export the game state.
+A DLL to let external processes communicate with SpeedRunners internals.
