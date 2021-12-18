@@ -40,7 +40,7 @@ HANDLE GetFirstThread()
 
     CloseHandle(snapshot);
 
-    HANDLE thread = OpenThread(THREAD_QUERY_INFORMATION, false, entry.th32ThreadID);
+    HANDLE thread = OpenThread(THREAD_QUERY_INFORMATION | THREAD_SUSPEND_RESUME, false, entry.th32ThreadID);
 
     if (thread == INVALID_HANDLE_VALUE)
     {

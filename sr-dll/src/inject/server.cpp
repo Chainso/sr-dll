@@ -64,15 +64,15 @@ static int ConnectAndSetupPipe(HANDLE& pipe)
 /**
  * @brief The server loop that allows for reconnections once a connection is closed.
  *
+ * @param thread    The thread the game is running on.
  * @param game  The current running game.
  * @param pipe  The pipe that handles connections.
  * @return      0 on success, -1 otherwise.
  */
-static int GameServerReconnectLoop(Game* game, HANDLE& pipe)
+static int GameServerReconnectLoop(HANDLE thread, Game* game, HANDLE& pipe)
 {
     char read_buffer[READ_BUFFER_SIZE];
     DWORD bytes_read;
-
     DWORD bytes_written;
 
     // Connect to client
@@ -102,7 +102,13 @@ static int GameServerReconnectLoop(Game* game, HANDLE& pipe)
             // Write cycle
             Packet packet = CreatePacket(game);
 
-            if (WriteFile(pipe, packet.message.c_str(), packet.length, &bytes_written, NULL))
+            if (!WriteFile(pipe, packet.message.c_str(), packet.length, &bytes_written, NULL))
+            {
+                print_error("Failed to write to pipe, disconnecting");
+                break;
+            }
+
+            if (bytes_written > 0)
             {
                 print("Sent packet");
                 print("Length: " << packet.length);
@@ -124,10 +130,11 @@ static int GameServerReconnectLoop(Game* game, HANDLE& pipe)
 /**
  * @brief The main game server loop.
  * 
- * @param game  The current running game.
- * @return      0 on success, -1 otherwise.
+ * @param thread    The thread the game is running on.
+ * @param game      The current running game.
+ * @return          0 on success, -1 otherwise.
  */
-static int GameServerLoop(Game* game)
+static int GameServerLoop(HANDLE thread, Game* game)
 {
     // Create named pipe to use
     LPCWSTR pipe_name = L"\\\\.\\pipe\\SpeedRunners-dll";
@@ -149,7 +156,7 @@ static int GameServerLoop(Game* game)
         return -1;
     }
 
-    return GameServerReconnectLoop(game, pipe);
+    return GameServerReconnectLoop(thread, game, pipe);
 }
 
 /**
@@ -171,7 +178,6 @@ int GameServer()
     uintptr_t start_addr = (uintptr_t)GetThreadStartAddress(process, thread);
 
     CloseHandle(process);
-    CloseHandle(thread);
 
     print("Got thread start address: " << (LPVOID)start_addr);
 
@@ -184,5 +190,8 @@ int GameServer()
     print(packet.message);
 
     print("Starting server loop");
-    return GameServerLoop(game);
+    int ret_value = GameServerLoop(thread, game);
+    CloseHandle(thread);
+
+    return ret_value;
 }

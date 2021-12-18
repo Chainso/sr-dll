@@ -16,6 +16,21 @@ static void to_json(nlohmann::json& j, const Vector2 vec)
 	};
 }
 
+static void to_json(nlohmann::json& j, const PlayerInput input)
+{
+	j = nlohmann::json{
+		{"left", input.left},
+		{"right", input.right},
+		{"jump", input.jump},
+		{"grapple", input.grapple},
+		{"item", input.item},
+		{"taunt", input.taunt},
+		{"swap_weapon", input.swap_weapon},
+		{"slide", input.slide},
+		{"boost", input.boost}
+	};
+}
+
 static void to_json(nlohmann::json& j, const Entity* entity)
 {
 	j = nlohmann::json{
@@ -32,9 +47,12 @@ static void to_json(nlohmann::json& j, const Player* player)
 		{"grapple_angle", player->grapple_angle},
 		{"boost", player->boost},
 		{"lap_time", player->lap_time},
-		{"sliding", player->sliding},
-		{"swinging", player->swinging},
+		{"input", player->input},
 		{"in_air", player->in_air},
+		{"sliding", player->sliding},
+		{"sliding_on_ground", player->sliding},
+		{"grappling", player->grappling},
+		{"on_wall", player->on_wall},
 		{"on_ground", player->on_ground},
 		{"item", player->item},
 		{"last_move_direction", player->last_move_direction}
