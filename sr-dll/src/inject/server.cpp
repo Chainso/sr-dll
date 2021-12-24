@@ -1,4 +1,3 @@
-#include <windows.h>
 #include <atlstr.h>
 
 #include "inject/server.h"
@@ -6,6 +5,7 @@
 #include "inject/ntinfo.h"
 #include "game/game.h"
 #include "game/packet.h"
+#include "game/memory.h"
 #include "util.h"
 
 
@@ -180,7 +180,7 @@ int GameServer()
     CloseHandle(process);
 
     print("Got thread start address: " << (LPVOID)start_addr);
-
+    /**
     Game* game = Game::GetGame(start_addr);
 
     Packet packet = CreatePacket(game);
@@ -194,4 +194,17 @@ int GameServer()
     CloseHandle(thread);
 
     return ret_value;
+    */
+
+    std::vector<BYTE> pattern = { 0x88, 0x86, 0x8F, 0x02, 0x00, 0x00, 0x8B, 0x7E, 0x68 };
+    BYTE wildcard = '?';
+
+    uintptr_t address = FindSignature(pattern, wildcard);
+
+    print("Found address of mov 28f: " << (LPVOID)address);
+
+    CloseHandle(thread);
+
+
+    return 0;
 }

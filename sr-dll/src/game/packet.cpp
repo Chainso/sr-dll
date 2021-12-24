@@ -8,15 +8,15 @@ static void to_json(nlohmann::json& j, const GameInfo* info)
 	};
 }
 
-static void to_json(nlohmann::json& j, const Vector2 vec)
+static void to_json(nlohmann::json& j, const Vector2& vec)
 {
 	j = nlohmann::json{
 		{"x", vec.x},
 		{"y", vec.y}
 	};
 }
-
-static void to_json(nlohmann::json& j, const PlayerInput input)
+ 
+static void to_json(nlohmann::json& j, const PlayerInput& input)
 {
 	j = nlohmann::json{
 		{"left", input.left},
@@ -29,6 +29,19 @@ static void to_json(nlohmann::json& j, const PlayerInput input)
 		{"slide", input.slide},
 		{"boost", input.boost}
 	};
+}
+
+static void from_json(const nlohmann::json& j, PlayerInput& input)
+{
+	j.at("left").get_to(input.left);
+	j.at("right").get_to(input.right);
+	j.at("jump").get_to(input.jump);
+	j.at("grapple").get_to(input.grapple);
+	j.at("item").get_to(input.item);
+	j.at("taunt").get_to(input.taunt);
+	j.at("swap_weapon").get_to(input.swap_weapon);
+	j.at("slide").get_to(input.slide);
+	j.at("boost").get_to(input.boost);
 }
 
 static void to_json(nlohmann::json& j, const Entity* entity)

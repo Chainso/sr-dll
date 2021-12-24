@@ -2,14 +2,15 @@
 #include <Windows.h>
 
 #include "util.h"
-#include "inject/server.h"
+#include "inject/server.h" 
+
 
 /**
  * @brief A thread to run the DLL server.
  * 
  * @return DWORD    The return status of the thread.
  */
-DWORD WINAPI ServerThread()
+DWORD WINAPI ServerThread(HMODULE hModule)
 {
     // Create a debug console
     FILE* std_file;
@@ -27,6 +28,7 @@ DWORD WINAPI ServerThread()
 
     print("Closing game server");
     FreeConsole();
+    FreeLibraryAndExitThread(hModule, return_value);
 
     return return_value;
 }

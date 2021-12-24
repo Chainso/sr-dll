@@ -2,7 +2,6 @@
 #ifndef GAME_OFFSETS_H
 #define GAME_OFFSETS_H
 
-#include <cstddef>
 #include <vector>
 
 struct GameAddress

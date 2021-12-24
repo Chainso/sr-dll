@@ -1,6 +1,5 @@
-#include <cstddef>
-
 #include "game/memory.h"
+#include "util.h"
 
 /**
  * @brief Finds the address using the pointer chain with offsets given.
@@ -16,4 +15,60 @@ uintptr_t FindAddress(uintptr_t pointer, std::vector<ptrdiff_t> offsets)
     }
 
     return pointer;
+}
+
+
+/**
+ * @brief Finds the first subarray that matches a signature.
+ *
+ * @param byte_arr  The array of bytes to search in.
+ * @param len       The length of the byte array.
+ * @param pattern   The byte pattern to search for.
+ * @param wildcard  The wildcard character in the pattern.
+ * @return          A pointer to the start of the matched pattern or NULL.
+ */
+uintptr_t FindSignature(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard)
+{
+    BYTE* end = byte_arr + len;
+    print("Starting addr: " << (LPVOID)byte_arr << " | Ending addr: " << (LPVOID)end);
+
+    MEMORY_BASIC_INFORMATION mbi{ 0 };
+    DWORD protection_flags = (PAGE_GUARD | PAGE_NOCACHE | PAGE_NOACCESS);
+
+    for (BYTE* current = byte_arr; current < end; current += mbi.RegionSize)
+    {
+        // Ignore regions without committed memory and protected regions
+        if (VirtualQuery((LPCVOID)current, &mbi, sizeof(mbi)) && !(mbi.Protect & protection_flags || !(mbi.State & MEM_COMMIT)))
+        {
+            print("Searching region: " << (LPVOID)current);
+            ptrdiff_t offset = search(current, mbi.RegionSize, pattern, wildcard);
+
+            if (offset != -1)
+            {
+                return (uintptr_t)(current + offset);
+            }
+        }
+    }
+
+    return NULL;
+}
+
+
+/**
+ * @brief Finds the first address that matches a signature in the current module.
+ *
+ * @param pattern   The byte pattern to search for.
+ * @param wildcard  The wildcard character in the pattern.
+ * @return          A pointer to the start of the matched pattern or NULL.
+ */
+uintptr_t FindSignature(std::vector<BYTE> pattern, BYTE wildcard)
+{
+    SYSTEM_INFO si;
+    GetSystemInfo(&si);
+
+    BYTE* start = (BYTE*)si.lpMinimumApplicationAddress;
+    BYTE* end = (BYTE*)si.lpMaximumApplicationAddress;
+    size_t len = end - start;
+
+    return FindSignature(start, len, pattern, wildcard);
 }
