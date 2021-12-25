@@ -3,11 +3,33 @@
 #include "inject/server.h"
 #include "inject/thread.h"
 #include "inject/ntinfo.h"
+#include "inject/detour.h"
 #include "game/game.h"
 #include "game/packet.h"
 #include "game/memory.h"
+#include "game/signatures.h"
 #include "util.h"
 
+#define INPUT_CALL_SIZE 6
+
+static int LeftInp() {
+    return 1;
+}
+
+static void CreateDetours()
+{
+    print("Detour func LeftInp: " << (LPVOID)LeftInp);
+    uintptr_t address = FindSignature(Signatures::inputLeft);
+    print("Found address of call before mov 28f: " << (LPVOID)address);
+    
+    if (address != NULL)
+    {
+        print("Detouring to function LeftInp at: " << (LPVOID)LeftInp);
+        bool detoured = CallDetour32((BYTE*)address, (uintptr_t)LeftInp, INPUT_CALL_SIZE);
+
+        print("Detoured: " << detoured);
+    }
+}
 
 /**
  * @brief Starts a connection to the pipe and sets up the pipe handle state.
@@ -180,6 +202,8 @@ int GameServer()
     CloseHandle(process);
 
     print("Got thread start address: " << (LPVOID)start_addr);
+    CreateDetours();
+
     /**
     Game* game = Game::GetGame(start_addr);
 
@@ -196,13 +220,7 @@ int GameServer()
     return ret_value;
     */
 
-    std::vector<BYTE> pattern = { 0x88, 0x86, 0x8F, 0x02, 0x00, 0x00, 0x8B, 0x7E, 0x68 };
-    BYTE wildcard = '?';
-
-    uintptr_t address = FindSignature(pattern, wildcard);
-
-    print("Found address of mov 28f: " << (LPVOID)address);
-
+   
     CloseHandle(thread);
 
 

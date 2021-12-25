@@ -28,7 +28,9 @@ DWORD WINAPI ServerThread(HMODULE hModule)
 
     print("Closing game server");
     FreeConsole();
-    FreeLibraryAndExitThread(hModule, return_value);
+
+    // Comment out for now until server is fully working
+    //FreeLibraryAndExitThread(hModule, return_value);
 
     return return_value;
 }

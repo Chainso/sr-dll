@@ -37,26 +37,25 @@ std::wstring string_format(const std::wstring& format, Args ... args)
  * @param wildcard  The wildcard character in the pattern.
  * @return          The prefix array of the pattern.
  */
-static std::vector<int> CreatePrefix(std::vector<BYTE> pattern, BYTE wildcard) {
-    std::vector<int> backtrack(pattern.size() + 1);
+std::vector<int> CreatePrefix(std::vector<BYTE> pattern, BYTE wildcard) {
+    std::vector<int> backtrack(pattern.size());
     backtrack[0] = 0;
-    backtrack[1] = 0;
 
-    for (size_t i = 2; i < backtrack.size(); i++)
+    int next = backtrack[0];
+
+    for (size_t i = 1; i < backtrack.size(); i++)
     {
-        int next = backtrack[i - 1];
+        backtrack[i] = next;
 
-        while (next > 0 && pattern[next] != wildcard && pattern[next] != pattern[i - 1])
+        while (next > 0 && pattern[next] != wildcard && pattern[next] != pattern[i])
         {
-            next = backtrack[next - 1];
+            next = backtrack[next];
         }
 
-        if (pattern[next] == wildcard || pattern[i - 1] == pattern[next])
+        if (pattern[next] == wildcard || pattern[i] == pattern[next])
         {
             next++;
         }
-
-        backtrack[i] = next;
     }
 
     return backtrack;
@@ -64,17 +63,16 @@ static std::vector<int> CreatePrefix(std::vector<BYTE> pattern, BYTE wildcard) {
 
 
 /**
- * @brief Finds a byte substring within a byte array.
+ * @brief Finds a byte substring within a byte array, using the already generated prefix array.
  * 
  * @param byte_arr  The array of bytes to search in.
  * @param len       The length of the byte array.
  * @param pattern   The byte pattern to search for.
  * @param wildcard  The wildcard character in the pattern.
+ * @param prefix    The prefix array of the pattern.
  * @return          The offset to the start of the matched pattern, or -1 on failure.
  */
-ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard) {
-    std::vector<int> prefix = CreatePrefix(pattern, wildcard);
-
+ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard, std::vector<int> prefix) {
     size_t i;
     size_t current = 0;
 
@@ -98,4 +96,18 @@ ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wil
     }
 
     return -1;
+}
+
+/**
+ * @brief Finds a byte substring within a byte array.
+ *
+ * @param byte_arr  The array of bytes to search in.
+ * @param len       The length of the byte array.
+ * @param pattern   The byte pattern to search for.
+ * @param wildcard  The wildcard character in the pattern.
+ * @return          The offset to the start of the matched pattern, or -1 on failure.
+ */
+ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard) {
+    std::vector<int> prefix = CreatePrefix(pattern, wildcard);
+    return search(byte_arr, len, pattern, wildcard);
 }
