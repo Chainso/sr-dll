@@ -103,7 +103,7 @@ bool Communication::Communicator::CreatePipe()
  */
 bool Communication::Communicator::ConnectAndSetupPipe()
 {
-    // Now set pipe state to wait so we can wait on connections
+    // Set the pipe to wait on messages
     DWORD pipe_mode = PIPE_READMODE_MESSAGE | PIPE_WAIT;
     if (SetNamedPipeHandleState(pipe, &pipe_mode, NULL, NULL) == 0)
     {
@@ -125,11 +125,9 @@ bool Communication::Communicator::ConnectAndSetupPipe()
 
     print("Connected to client!");
 
-    // Now set pipe state to no wait
-    pipe_mode = PIPE_READMODE_MESSAGE | PIPE_NOWAIT;
     if (SetNamedPipeHandleState(pipe, &pipe_mode, NULL, NULL) == 0)
     {
-        print_error("Failed to set pipe state to no wait");
+        print_error("Failed to set pipe state to wait");
 
         DisconnectPipe();
 
