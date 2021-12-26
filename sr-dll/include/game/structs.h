@@ -17,7 +17,7 @@ struct PlayerInput
 	bool right; //0x0001
 	bool jump; //0x0002
 	bool grapple; //0x0003
-	char pad_0004[1]; //0x0004 different source than the other inputs
+	char weapon; //0x0004 different source than the other inputs, perhaps for single player only
 	bool item; //0x0005
 	bool taunt; //0x0006
 	bool swap_weapon; //0x0007

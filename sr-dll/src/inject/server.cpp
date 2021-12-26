@@ -8,24 +8,74 @@
 #include "game/packet.h"
 #include "game/memory.h"
 #include "game/signatures.h"
+#include <unordered_map>
+
+#include "game/structs.h"
 #include "util.h"
 
 #define INPUT_CALL_SIZE 6
 
-static int LeftInp() {
+struct IsPressedArg {
+    char pad_0[8];
+    wchar_t action[0]; // UTF-16 null terminated string
+};
+
+enum class PressedAction {
+    PS_LEFT,
+    PS_RIGHT,
+    PS_JUMP,
+    PS_WEAPON,
+    PS_ITEM,
+    PS_TAUNT,
+    PS_SWAP,
+    PS_SLIDE,
+    PS_BOOST
+};
+
+
+// Global vars to use in detours
+static const std::unordered_map<std::wstring, PressedAction> pressedActionTable = {
+    {L"ps_left", PressedAction::PS_LEFT},
+    {L"ps_right", PressedAction::PS_RIGHT},
+    {L"ps_jump", PressedAction::PS_JUMP},
+    {L"ps_weapon", PressedAction::PS_WEAPON},
+    {L"ps_item", PressedAction::PS_ITEM},
+    {L"ps_taunt", PressedAction::PS_TAUNT},
+    {L"ps_swap", PressedAction::PS_SWAP},
+    {L"ps_slide", PressedAction::PS_SLIDE},
+    {L"ps_boost", PressedAction::PS_BOOST}
+};
+
+static HANDLE pipe;
+static bool connected;
+static PlayerInput controller;
+
+static int __fastcall IsPressed(void* arg, IsPressedArg* pressed_arg) {
+    std::wstring act_str(pressed_arg->action);
+    auto act_it = pressedActionTable.find(act_str);
+
+    if (act_it == pressedActionTable.end())
+    {
+        // Invalid action
+        std::wcout << "Invalid action: " << act_str << std::endl;
+        return 0;
+    }
+
+    PressedAction action = act_it->second;
+
     return 1;
 }
 
 static void CreateDetours()
 {
-    print("Detour func LeftInp: " << (LPVOID)LeftInp);
+    print("Detour func LeftInp: " << (LPVOID)IsPressed);
     uintptr_t address = FindSignature(Signatures::inputLeft);
     print("Found address of call before mov 28f: " << (LPVOID)address);
     
     if (address != NULL)
     {
-        print("Detouring to function LeftInp at: " << (LPVOID)LeftInp);
-        bool detoured = CallDetour32((BYTE*)address, (uintptr_t)LeftInp, INPUT_CALL_SIZE);
+        print("Detouring to function LeftInp at: " << (LPVOID)IsPressed);
+        bool detoured = CallDetour32((BYTE*)address, (uintptr_t)IsPressed, INPUT_CALL_SIZE);
 
         print("Detoured: " << detoured);
     }
@@ -37,7 +87,7 @@ static void CreateDetours()
  * @param pipe  The pipe that handles connections.
  * @return      0 on success, -1 otherwise.
  */
-static int ConnectAndSetupPipe(HANDLE& pipe)
+static int ConnectAndSetupPipe(HANDLE pipe)
 {
     // Now set pipe state to wait so we can wait on connections
     DWORD pipe_mode = PIPE_READMODE_MESSAGE | PIPE_WAIT;
@@ -91,7 +141,7 @@ static int ConnectAndSetupPipe(HANDLE& pipe)
  * @param pipe  The pipe that handles connections.
  * @return      0 on success, -1 otherwise.
  */
-static int GameServerReconnectLoop(HANDLE thread, Game* game, HANDLE& pipe)
+static int GameServerReconnectLoop(HANDLE thread, Game* game, HANDLE pipe)
 {
     char read_buffer[READ_BUFFER_SIZE];
     DWORD bytes_read;
@@ -161,7 +211,7 @@ static int GameServerLoop(HANDLE thread, Game* game)
     // Create named pipe to use
     LPCWSTR pipe_name = L"\\\\.\\pipe\\SpeedRunners-dll";
     
-    HANDLE pipe = CreateNamedPipe(
+    pipe = CreateNamedPipe(
         pipe_name, 
         PIPE_ACCESS_DUPLEX,
         PIPE_TYPE_MESSAGE | PIPE_WAIT | PIPE_REJECT_REMOTE_CLIENTS,

@@ -13,8 +13,8 @@
 
 template<typename ... Args>
 std::wstring string_format(const std::wstring& format, Args ... args);
-std::vector<int> CreatePrefix(std::vector<BYTE> pattern, BYTE wildcard);
-ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard, std::vector<int> prefix);
-ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard);
+std::vector<int> CreatePrefix(const std::vector<BYTE>& pattern, BYTE wildcard);
+ptrdiff_t search(BYTE* byte_arr, size_t len, const std::vector<BYTE>& pattern, BYTE wildcard, const std::vector<int>& prefix);
+ptrdiff_t search(BYTE* byte_arr, size_t len, const std::vector<BYTE>& pattern, BYTE wildcard);
 
 #endif // UTIL_H

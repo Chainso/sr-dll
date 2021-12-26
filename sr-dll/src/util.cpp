@@ -37,7 +37,7 @@ std::wstring string_format(const std::wstring& format, Args ... args)
  * @param wildcard  The wildcard character in the pattern.
  * @return          The prefix array of the pattern.
  */
-std::vector<int> CreatePrefix(std::vector<BYTE> pattern, BYTE wildcard) {
+std::vector<int> CreatePrefix(const std::vector<BYTE>& pattern, BYTE wildcard) {
     std::vector<int> backtrack(pattern.size());
     backtrack[0] = 0;
 
@@ -72,13 +72,20 @@ std::vector<int> CreatePrefix(std::vector<BYTE> pattern, BYTE wildcard) {
  * @param prefix    The prefix array of the pattern.
  * @return          The offset to the start of the matched pattern, or -1 on failure.
  */
-ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard, std::vector<int> prefix) {
+ptrdiff_t search(BYTE* byte_arr, size_t len, const std::vector<BYTE>& pattern, BYTE wildcard, const std::vector<int>& prefix) {
     size_t i;
     size_t current = 0;
 
     for (i = 0; i < len && current < pattern.size(); i++)
     {
-        //print("Searching: " << (LPVOID)&text[i]);
+        if (&byte_arr[i] == pattern.data())
+        {
+            // Make sure not the match the pattern on its own memory
+            i += pattern.size() - 1;
+            current = 0;
+            continue;
+        }
+
         while (current > 0 && pattern[current] != wildcard && byte_arr[i] != pattern[current])
         {
             current = prefix[current];
@@ -107,7 +114,7 @@ ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wil
  * @param wildcard  The wildcard character in the pattern.
  * @return          The offset to the start of the matched pattern, or -1 on failure.
  */
-ptrdiff_t search(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard) {
+ptrdiff_t search(BYTE* byte_arr, size_t len, const std::vector<BYTE>& pattern, BYTE wildcard) {
     std::vector<int> prefix = CreatePrefix(pattern, wildcard);
-    return search(byte_arr, len, pattern, wildcard);
+    return search(byte_arr, len, pattern, wildcard, prefix);
 }

@@ -8,7 +8,7 @@
  * @param offsets       The offsets at each pointer level.
  * @return uintptr_t    The resulting pointer from computing the addresses.
  */
-uintptr_t FindAddress(uintptr_t pointer, std::vector<ptrdiff_t> offsets)
+uintptr_t FindAddress(uintptr_t pointer, const std::vector<ptrdiff_t>& offsets)
 {
     for (size_t i = 0; i < offsets.size(); i++) {
         pointer = *(uintptr_t*)pointer + offsets[i];
@@ -27,7 +27,7 @@ uintptr_t FindAddress(uintptr_t pointer, std::vector<ptrdiff_t> offsets)
  * @param wildcard  The wildcard character in the pattern.
  * @return          A pointer to the start of the matched pattern or NULL.
  */
-uintptr_t FindSignature(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, BYTE wildcard)
+uintptr_t FindSignature(BYTE* byte_arr, size_t len, const std::vector<BYTE>& pattern, BYTE wildcard)
 {
     BYTE* end = byte_arr + len;
     print("Starting addr: " << (LPVOID)byte_arr << " | Ending addr: " << (LPVOID)end);
@@ -36,11 +36,6 @@ uintptr_t FindSignature(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, B
     DWORD protection_flags = (PAGE_GUARD | PAGE_NOCACHE | PAGE_NOACCESS);
 
     std::vector<int> prefix = CreatePrefix(pattern, wildcard);
-    std::cout << "[";
-    for (int& idx : prefix) {
-        std::cout << idx << " ";
-    }
-    std::cout << "]" << std::endl;
 
     for (BYTE* current = byte_arr; current < end; current += mbi.RegionSize)
     {
@@ -69,7 +64,7 @@ uintptr_t FindSignature(BYTE* byte_arr, size_t len, std::vector<BYTE> pattern, B
  * @param wildcard  The wildcard character in the pattern.
  * @return          A pointer to the start of the matched pattern or NULL.
  */
-uintptr_t FindSignature(std::vector<BYTE> pattern, BYTE wildcard)
+uintptr_t FindSignature(const std::vector<BYTE>& pattern, BYTE wildcard)
 {
     SYSTEM_INFO si;
     GetSystemInfo(&si);
@@ -90,7 +85,7 @@ uintptr_t FindSignature(std::vector<BYTE> pattern, BYTE wildcard)
  * @param sig       The signature to match.
  * @return          A pointer to the start of the matched pattern or NULL.
  */
-uintptr_t FindSignature(BYTE* byte_arr, size_t len, Signature sig)
+uintptr_t FindSignature(BYTE* byte_arr, size_t len, const Signature& sig)
 {
     BYTE* end = byte_arr + len;
     BYTE* current = byte_arr;
@@ -120,7 +115,7 @@ uintptr_t FindSignature(BYTE* byte_arr, size_t len, Signature sig)
  * @param sig   The signature to match.
  * @return      A pointer to the start of the matched pattern or NULL.
  */
-uintptr_t FindSignature(Signature sig)
+uintptr_t FindSignature(const Signature& sig)
 {
     SYSTEM_INFO si;
     GetSystemInfo(&si);
