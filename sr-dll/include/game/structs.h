@@ -5,11 +5,7 @@
 
 #include <stdint.h>
 
-struct Vector2
-{
-	float x;
-	float y;
-};
+#define NUM_PLAYER_INPUTS 10
 
 struct PlayerInput
 {
@@ -25,6 +21,12 @@ struct PlayerInput
 	bool slide; //0x0009
 	bool boost; //0x000A
 }; //Size: 0x000B
+
+struct Vector2
+{
+	float x;
+	float y;
+};
 
 struct Entity
 {

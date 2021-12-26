@@ -9,25 +9,40 @@
 #include "util.h"
 
 #define INPUT_CALL_SIZE 6
+#define LEN_BETWEEN_INPUT_CALLS 34
 
 /**
  * @brief Creates the code detours necessary to run the program.
+ * 
+ * @return bool True if the detours were created successfully.
  */
-static void CreateDetours()
+static bool CreateDetours()
 {
-    LPVOID detour_func_addr = (LPVOID)Communication::GetInputAndCheckPressed;
-
-    print("Detour func LeftInp: " << detour_func_addr);
     uintptr_t address = FindSignature(Signatures::inputLeft);
-    print("Found address of call before mov 28f: " << (LPVOID)address);
+    print("Found address of call before mov 28f (left): " << (LPVOID)address);
     
-    if (address != NULL)
-    {
-        print("Detouring to function LeftInp at: " << detour_func_addr);
-        bool detoured = CallDetour32((BYTE*)address, (uintptr_t)detour_func_addr, INPUT_CALL_SIZE);
+    // Write the detours in reverse order since the first detour will incur I/O, prevents problem of game reading
+    // memory before all detours are written, shouldn't be an issue with this
+    address += (NUM_PLAYER_INPUTS - 1) * LEN_BETWEEN_INPUT_CALLS;
 
-        print("Detoured: " << detoured);
+    for (int i = NUM_PLAYER_INPUTS - 1; i > 0; i--)
+    {
+        if (!CallDetour32((BYTE*)address, (uintptr_t)Communication::IsPressed, INPUT_CALL_SIZE))
+        {
+            print_error("Failed to detour pressed for action: " << i);
+            return false;
+        }
+
+        address -= LEN_BETWEEN_INPUT_CALLS;
     }
+
+    if (!CallDetour32((BYTE*)address, (uintptr_t)Communication::GetInputAndCheckPressed, INPUT_CALL_SIZE))
+    {
+        print_error("Failed to detour I/O and check pressed");
+        return false;
+    }
+
+    return true;
 }
 
 
@@ -57,13 +72,17 @@ int GameServer()
     Game* game = Game::GetGame(start_addr);
     Communication::Communicator::CreateCommunicator(game, PIPE_NAME);
 
+    if (!CreateDetours())
+    {
+        // Failed to create detours, exit
+        return -1;
+    }
+
     if (!Communication::comm->CreatePipe() || !Communication::comm->ConnectAndSetupPipe())
     {
         // Failed to create pipe or get a connection, error out
         return -1;
     }
-
-    CreateDetours();
 
     return 0;
 }
