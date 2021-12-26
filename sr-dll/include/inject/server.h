@@ -1,9 +1,8 @@
 #pragma once
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef INJECT_SERVER_H
+#define INJECT_SERVER_H
 
-#define WRITE_BUFFER_SIZE 1024
-#define READ_BUFFER_SIZE 8
+#define PIPE_NAME L"\\\\.\\pipe\\SpeedRunners-dll"
 
 int GameServer();
 

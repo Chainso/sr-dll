@@ -112,8 +112,6 @@ DWORD GetThreadStartAddress(HANDLE processHandle, HANDLE hThread)
 	//	}
 	//}
 
-	CloseHandle(hThread);
-
 	if (stacktop)
 	{
 		//find the stack entry pointing to the function that calls "ExitXXXXXThread"

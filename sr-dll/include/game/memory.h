@@ -1,6 +1,6 @@
 #pragma once
-#ifndef MEMORY_H
-#define MEMORY_H	
+#ifndef GAME_MEMORY_H
+#define GAME_MEMORY_H	
 
 #include <cstddef>
 #include <vector>
@@ -14,4 +14,4 @@ uintptr_t FindSignature(const std::vector<BYTE>& pattern, BYTE wildcard);
 uintptr_t FindSignature(BYTE* byte_arr, size_t len, const Signature& sig);
 uintptr_t FindSignature(const Signature& sig);
 
-#endif // MEMORY_H
+#endif // GAME_MEMORY_H
