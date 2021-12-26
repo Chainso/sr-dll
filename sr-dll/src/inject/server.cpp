@@ -15,7 +15,7 @@
  */
 static void CreateDetours()
 {
-    LPVOID detour_func_addr = (LPVOID)Communication::IsPressed;
+    LPVOID detour_func_addr = (LPVOID)Communication::GetInputAndCheckPressed;
 
     print("Detour func LeftInp: " << detour_func_addr);
     uintptr_t address = FindSignature(Signatures::inputLeft);
@@ -57,27 +57,13 @@ int GameServer()
     Game* game = Game::GetGame(start_addr);
     Communication::Communicator::CreateCommunicator(game, PIPE_NAME);
 
-    if (!Communication::comm->CreatePipe())
+    if (!Communication::comm->CreatePipe() || !Communication::comm->ConnectAndSetupPipe())
     {
-        // Failed to create pipe, error outop;p
+        // Failed to create pipe or get a connection, error out
+        return -1;
     }
 
     CreateDetours();
-
-    /*
-    Packet packet = CreatePacket(game);
-
-    print("Got sample packet");
-    print(packet.length);
-    print(packet.message);
-
-    print("Starting server loop");
-    int ret_value = GameServerLoop(thread, game);
-    CloseHandle(thread);
-
-    return ret_value;
-    */
-
 
     return 0;
 }

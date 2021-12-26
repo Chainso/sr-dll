@@ -23,6 +23,7 @@ static void to_json(nlohmann::json& j, const PlayerInput& input)
 		{"right", input.right},
 		{"jump", input.jump},
 		{"grapple", input.grapple},
+		{"weapon", input.weapon},
 		{"item", input.item},
 		{"taunt", input.taunt},
 		{"swap_weapon", input.swap_weapon},
@@ -37,6 +38,7 @@ static void from_json(const nlohmann::json& j, PlayerInput& input)
 	j.at("right").get_to(input.right);
 	j.at("jump").get_to(input.jump);
 	j.at("grapple").get_to(input.grapple);
+	j.at("weapon").get_to(input.weapon);
 	j.at("item").get_to(input.item);
 	j.at("taunt").get_to(input.taunt);
 	j.at("swap_weapon").get_to(input.swap_weapon);

@@ -8,7 +8,7 @@
 #include "game/structs.h"
 
 #define WRITE_BUFFER_SIZE 1024
-#define READ_BUFFER_SIZE 16
+#define READ_BUFFER_SIZE 1024
 
 
 namespace Communication
@@ -56,7 +56,6 @@ namespace Communication
         Communicator(Game* game, LPCWSTR pipe_name) : game(game), pipe_name(pipe_name) {}
 
     public:
-
         static Communicator* CreateCommunicator(Game* game, LPCWSTR pipe_name);
         bool CreatePipe();
         bool ConnectAndSetupPipe();

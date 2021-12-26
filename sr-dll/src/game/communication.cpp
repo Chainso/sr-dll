@@ -170,12 +170,10 @@ bool Communication::Communicator::SendPacket()
         return false;
     }
 
-    if (bytes_written > 0)
-    {
-        print("Sent packet");
-        print("Length: " << packet.length);
-        print(packet.message);
-    }
+    print("Sent packet");
+    print("Length: " << packet.length);
+    print(packet.message);
+
     return true;
 }
 
@@ -186,23 +184,15 @@ bool Communication::Communicator::SendPacket()
  */
 bool Communication::Communicator::ReceivePacket()
 {
-    if (ReadFile(pipe, read_buffer, READ_BUFFER_SIZE, &bytes_read, NULL))
-    {
-        controller = ParsePacket(read_buffer, bytes_read);
-        return true;
-    }
-    else if (GetLastError() == ERROR_HANDLE_EOF)
-    {
-        // EOF, exit out
-        print("Read EOF, disconnecting");
-    }
-    else if (GetLastError() != ERROR_NO_DATA)
+    if (!ReadFile(pipe, read_buffer, READ_BUFFER_SIZE, &bytes_read, NULL))
     {
         // Read failed, and not because of no data
         print_error("Failed to read from pipe, disconnecting");
+        return false;
     }
 
-    return false;
+    controller = ParsePacket(read_buffer, bytes_read);
+    return true;
 }
 
 
