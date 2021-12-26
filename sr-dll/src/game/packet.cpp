@@ -83,8 +83,8 @@ static void to_json(nlohmann::json& j, const Game* game)
 /**
  * @brief Creates a packet from the current game state.
  *
- * @param game  The game state to create the packet from.
- * @returns     The packet object from the game state.
+ * @param game  	The game state to create the packet from.
+ * @return Packet   The packet object from the game state.
  */
 Packet CreatePacket(Game* game)
 {
@@ -93,6 +93,22 @@ Packet CreatePacket(Game* game)
 	Packet packet;
 	packet.message = message.dump();
 	packet.length = packet.message.size();
+
+	return packet;
+}
+
+
+/**
+ * @brief Parses a packet into the player input.
+ * 
+ * @param buffer		The buffer containing the message to parse.
+ * @param len 			The length of the buffer.
+ * @return PlayerInput 	The parsed packet.
+ */
+PlayerInput ParsePacket(char* buffer, size_t len)
+{
+	nlohmann::json message = nlohmann::json::parse(buffer, buffer + len);
+	PlayerInput packet = message;
 
 	return packet;
 }

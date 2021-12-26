@@ -1,6 +1,7 @@
 #include <atlstr.h>
 
 #include "game/communication.h"
+#include "game/packet.h"
 #include "util.h"
 
 using namespace Communication;
@@ -187,7 +188,7 @@ bool Communication::Communicator::ReceivePacket()
 {
     if (ReadFile(pipe, read_buffer, READ_BUFFER_SIZE, &bytes_read, NULL))
     {
-        // Read succeeded, TODO: do something here
+        controller = ParsePacket(read_buffer, bytes_read);
         return true;
     }
     else if (GetLastError() == ERROR_HANDLE_EOF)

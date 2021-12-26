@@ -4,7 +4,7 @@
 
 #include <unordered_map>
 
-#include "game/packet.h"
+#include "game/game.h"
 #include "game/structs.h"
 
 #define WRITE_BUFFER_SIZE 1024

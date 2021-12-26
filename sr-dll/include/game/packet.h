@@ -13,5 +13,6 @@ struct Packet
 };
 
 Packet CreatePacket(Game* game);
+PlayerInput ParsePacket(char* buffer, size_t len);
 
 #endif // GAME_PACKET_H
