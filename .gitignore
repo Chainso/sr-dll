@@ -3,6 +3,7 @@ Injector
 
 # Compilation files
 Debug
+Release
 
 # Visual Studio files
 *.sln
