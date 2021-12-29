@@ -170,10 +170,6 @@ bool Communication::Communicator::SendPacket()
         return false;
     }
 
-    print("Sent packet");
-    print("Length: " << packet.length);
-    print(packet.message);
-
     return true;
 }
 

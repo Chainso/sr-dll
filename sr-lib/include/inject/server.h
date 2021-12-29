@@ -2,7 +2,7 @@
 #ifndef INJECT_SERVER_H
 #define INJECT_SERVER_H
 
-#define PIPE_NAME L"\\\\.\\pipe\\SpeedRunners-dll"
+#define PIPE_NAME L"\\\\.\\pipe\\SpeedRunners-lib"
 
 int GameServer();
 
