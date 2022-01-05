@@ -10,4 +10,11 @@ Build using your favourite build tool. Make sure to include the `include` and `l
 
 1. Open the SpeedRunners game and load a free practice map.
 2. Use an injector to inject the built DLL into the game.  
-(a) Wait until the console says "Waiting for client...".
+    (a) Wait until the console says "Waiting for client...".
+
+
+## Roadmap
+
+1. Add a more complex messaging system, with configuration messages.  
+    (a) In configuration, add tick skip.  
+    (b) Add game resetting message.
