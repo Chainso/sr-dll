@@ -3,7 +3,11 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-set(PROJECT_NAME sr-lib)
+project(sr-lib)
+
+cmake_policy(SET CMP0069 NEW) 
+set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
+include(CheckIPOSupported)
 
 ################################################################################
 # Source groups
@@ -55,9 +59,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/lib"
 )
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    INTERPROCEDURAL_OPTIMIZATION_RELEASE "TRUE"
-)
+check_ipo_supported(RESULT ipo_supported)
+if(ipo_supported)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        INTERPROCEDURAL_OPTIMIZATION_RELEASE "TRUE"
+    )
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:"
@@ -80,7 +87,7 @@ if(MSVC)
             /std:c++17
         >
         $<$<CONFIG:Release>:
-            /Oi;
+            /O2;
             /Gy
         >
         /permissive-;
