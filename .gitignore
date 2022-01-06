@@ -6,6 +6,8 @@ reverse-engineering
 # Compilation files
 Debug
 Release
+out
+build
 
 # Visual Studio files
 *.sln
@@ -17,6 +19,7 @@ Release
 *resource.h
 *.filters
 *.user
+*.json
 
 # VS Code files
 .vs
